@@ -1,11 +1,11 @@
-export const criarUsuario = (req, res) => {
+export const criarProduto = (req, res) => {
     res.status(200).json({message: 'Deu bom'})
 }
 
-export const totalUsuarios = (req, res) => {
+export const totalProdutos = (req, res) => {
     res.status(200).json({message: 'Deu bom'})
 }
 
-export const deletarUsuario = (req, res) => {
+export const deletarProduto = (req, res) => {
     res.status(200).json({message: 'Deu bom'})
 }

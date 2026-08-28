@@ -1,12 +1,12 @@
 import express from 'express'
-import { criarUsuario } from './controllers/usuarioController.js'
-import { totalUsuarios } from './controllers/usuarioController.js'
-import { deletarUsuario } from './controllers/usuarioController.js'
+import { criarProduto } from './controllers/ProdutoController.js'
+import { totalProdutos } from './controllers/ProdutoController.js'
+import { deletarProduto } from './controllers/ProdutoController.js'
 
 const router = express.Router()
 
-router.post('/cadastro', criarUsuario)
-router.get('/todosUsuarios', totalUsuarios)
-router.delete('/deletar', deletarUsuario)
+router.post('/cadastro', criarProduto)
+router.get('/todosProdutos', totalProdutos)
+router.delete('/deletar', deletarProduto)
 
 export default router
