@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.post('/cadastro', criarProduto)
 router.get('/todosProdutos', totalProdutos)
-router.delete('/deletar', deletarProduto)
+router.delete('/deletar/:id', deletarProduto)
 
 export default router

@@ -7,34 +7,52 @@ module.exports = {
     await queryInterface.createTable('products', {
       id: {
         type: Sequelize.UUID,
-        AllowNull: false,
+        allowNull: false,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4
       },
-      modelo: {
-        type: Sequelize.STRING,
-        AllowNull: false,
-      },
+
       marca: {
         type: Sequelize.STRING,
-        AllowNull: false,
+        allowNull: false
       },
-      placa: {
+
+      modelo: {
         type: Sequelize.STRING,
-        AllowNull: false,
+        allowNull: false
       },
+
       ano: {
         type: Sequelize.INTEGER,
-        AllowNull: false,
+        allowNull: false
       },
-      update_at: {
-        type: Sequelize.DATE,
-        AllowNull: false,
+
+      placa: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
+
+      valor_diaria: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false
+      },
+
+      status: {
+        type: Sequelize.ENUM('disponivel', 'alugado'),
+        allowNull: false,
+        defaultValue: 'disponivel'
+      },
+
       created_at: {
         type: Sequelize.DATE,
-        AllowNull: false,
+        allowNull: false
       },
+
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      }
     });
 
   },
