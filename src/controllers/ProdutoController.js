@@ -25,30 +25,30 @@ export const criarProduto = async (req, res) => {
 
 export const totalProdutos = async (req, res) => {
 
-    try{
+    try {
         const produto = await Produto.findAll()
-    res.status(200).json(produto)
-}catch(err){
-    res.status(500).json(err)
-}
+        res.status(200).json(produto)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 
 }
 
-export const deletarProduto = async(req, res) => {
+export const deletarProduto = async (req, res) => {
 
-    
-    try{
+
+    try {
         const produto = await Produto.destroy({
-        where: { id: req.params.id}
-    })
+            where: { id: req.params.id }
+        })
 
-    res.status(200).json(produto)
-}catch(err){
-    res.status(500).json(err)
-}
+        res.status(200).json(produto)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 }
 
-export const editarProduto = async(req, res) => {
+export const editarProduto = async (req, res) => {
 
     try {
         const produtoEditar = {
@@ -61,14 +61,36 @@ export const editarProduto = async(req, res) => {
             status: req.body.status
         }
 
-        const produto = await Produto.update(produtoEditar,{
-        where: { id: req.params.id}
-    })
+        const produto = await Produto.update(produtoEditar, {
+            where: { id: req.params.id }
+        })
 
-    const produtoup = await Produto.findByPk(req.params.id)
-    res.status(200).json(produtoup)
+        const produtoup = await Produto.findByPk(req.params.id)
+        res.status(200).json(produtoup)
 
-}catch(err){
-    res.status(500).json(err)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 }
+
+export const buscarProdutoId = async (req, res) => {
+
+    try {
+        const produto = await Produto.findByPk(req.params.id)
+        res.status(200).json(produto)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+}
+
+export const buscarProdutoPlaca = async (req, res) => {
+
+    try {
+        const produto = await Produto.findOne({where: { placa: req.params.placa }})
+        res.status(200).json(produto)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
 }
