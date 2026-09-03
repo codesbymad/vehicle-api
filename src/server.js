@@ -21,11 +21,33 @@ Aluguel.init(sequelize)
 app.use('/Produtos', ProdutoRotas)
 app.use('/clientes', ClienteRotas)
 app.use('/alugueis', AluguelRotas)
+app.use((err, req, res, next) => {
+    if (err.name === "SequelizeUniqueConstraintError") {
+        return res.status(400).json({
+            message: "A placa informada já está cadastrada"
+        })
+    }
+    if (err.name === "SequelizeDatabaseError" && err.parent.message.includes("invalid input value for enum")) {
+        return res.status(400).json({
+            message: "Valor inválido atribuído ao status"
+        })
+    }
+    if (err.name === "SequelizeValidationError") {
+    return res.status(400).json({
+        message: "Dados inválidos na requisição"
+    })
+}   
+    else
+        res.status(500).json({
+            message: "Erro interno inesperado do servidor"
+        })
+})
+
 
 sequelize.authenticate().then(() => {
     console.log("Banco de dados funcionando")
     app.listen(3000, () => console.log("Servidor ON"))
-}).catch( err => (
-    console.error(err)
+}).catch(err => (
+    next(err)
 ))
 

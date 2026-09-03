@@ -1,7 +1,7 @@
 import Cliente from '../models/Cliente.js'
 import crypto from 'node:crypto'
 
-export const criarCliente = async (req, res) => {
+export const criarCliente = async (req, res, next) => {
 
     try {
         const clienteCriar = {
@@ -14,10 +14,10 @@ export const criarCliente = async (req, res) => {
 
         const cliente = await Cliente.create(clienteCriar)
 
-
         res.status(201).json(cliente)
     } catch (err) {
-        res.status(500).json(err)
+        console.log(err)
+        next(err)
     }
 }
 

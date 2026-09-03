@@ -4,7 +4,7 @@ import Cliente from '../models/Cliente.js'
 import crypto from 'node:crypto'
 import { uuidValido } from '../utils/validarUuid.js'
 
-export const criarAluguel = async (req, res) => {
+export const criarAluguel = async (req, res, next) => {
 
     try {
 
@@ -90,11 +90,11 @@ export const criarAluguel = async (req, res) => {
         })
 
     } catch (err) {
-        res.status(500).json(err)
+        next(err)
     }
 }
 
-export const devolverAluguel = async (req, res) => {
+export const devolverAluguel = async (req, res, next) => {
 
     try {
 
@@ -124,12 +124,12 @@ export const devolverAluguel = async (req, res) => {
 
         const produtoup = await Produto.findByPk(aluguel.produto_id)
         
-        res.status(201).json({
+        res.status(200).json({
             aluguel: aluguel,
             produto: produtoup
         })
     } catch (err) {
-        res.status(500).json(err)
+        next(err)
     }
 
 }
