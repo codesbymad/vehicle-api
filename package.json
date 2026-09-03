@@ -20,6 +20,7 @@
   "homepage": "https://github.com/codesbymad/vehicle-api#readme",
   "dependencies": {
     "@sequelize/postgres": "^7.0.0-alpha.48",
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "pg": "^8.23.0",
     "pg-hstore": "^2.3.4",

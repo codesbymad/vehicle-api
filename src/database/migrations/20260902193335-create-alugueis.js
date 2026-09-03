@@ -40,10 +40,6 @@ module.exports = {
         allowNull: false
       },
 
-      data_devolucao: {
-        type: Sequelize.DATE
-      },
-
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

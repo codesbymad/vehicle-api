@@ -19,7 +19,7 @@ export const criarProduto = async (req, res, next) => {
         const produto = await Produto.create(produtoCriar)
 
 
-        res.status(200).json(produto)
+        res.status(201).json(produto)
     } catch (err) {
         console.log(err)
         next(err)

@@ -1,5 +1,3 @@
-//iniciar servidor: node src/server.js
-
 import express from 'express'
 import Produto from './models/Produto.js'
 import Cliente from './models/Cliente.js'
@@ -33,14 +31,13 @@ app.use((err, req, res, next) => {
         })
     }
     if (err.name === "SequelizeValidationError") {
-    return res.status(400).json({
-        message: "Dados inválidos na requisição"
-    })
-}   
-    else
-        res.status(500).json({
-            message: "Erro interno inesperado do servidor"
+        return res.status(400).json({
+            message: "Dados inválidos na requisição"
         })
+    }
+    res.status(500).json({
+        message: "Erro interno inesperado do servidor"
+    })
 })
 
 
@@ -48,6 +45,6 @@ sequelize.authenticate().then(() => {
     console.log("Banco de dados funcionando")
     app.listen(3000, () => console.log("Servidor ON"))
 }).catch(err => (
-    next(err)
+    console.error("Erro ao conectar com o banco de dados:", err)
 ))
 
