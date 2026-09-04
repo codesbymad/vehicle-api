@@ -10,6 +10,8 @@ import ProdutoRotas from './routes/produtoRoutes.js'
 import ClienteRotas from './routes/clienteRoutes.js'
 import AluguelRotas from './routes/aluguelRoutes.js'
 import UsuarioRotas from './routes/usuarioRoutes.js'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './docs/swagger.js'
 
 const app = express()
 app.use(express.json())
@@ -19,6 +21,7 @@ Cliente.init(sequelize)
 Aluguel.init(sequelize)
 Usuario.init(sequelize)
 
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/Produtos', ProdutoRotas)
 app.use('/clientes', ClienteRotas)
 app.use('/alugueis', AluguelRotas)
