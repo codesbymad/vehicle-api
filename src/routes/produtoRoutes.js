@@ -7,14 +7,15 @@ import {
     buscarProdutoId,
     buscarProdutoPlaca
 } from '../controllers/ProdutoController.js'
+import { autenticacao } from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 
-router.post('/cadastro', criarProduto)
-router.get('/todosProdutos', totalProdutos)
-router.delete('/deletar/:id', deletarProduto)
-router.put('/editar/:id', editarProduto)
-router.get('/buscarProdutoId/:id', buscarProdutoId)
-router.get('/buscarProdutoPlaca/:placa', buscarProdutoPlaca)
+router.post('/cadastro', autenticacao, criarProduto)
+router.get('/todosProdutos', autenticacao, totalProdutos)
+router.delete('/deletar/:id', autenticacao, deletarProduto)
+router.put('/editar/:id', autenticacao, editarProduto)
+router.get('/buscarProdutoId/:id', autenticacao, buscarProdutoId)
+router.get('/buscarProdutoPlaca/:placa', autenticacao, buscarProdutoPlaca)
 
 export default router

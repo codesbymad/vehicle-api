@@ -3,6 +3,7 @@ import Produto from '../models/Produto.js'
 import Cliente from '../models/Cliente.js'
 import crypto from 'node:crypto'
 import { uuidValido } from '../utils/validarUuid.js'
+import { sequelize } from '../database/index.js'
 
 export const criarAluguel = async (req, res, next) => {
 
@@ -47,11 +48,11 @@ export const criarAluguel = async (req, res, next) => {
             })
         }
 
-        
+
 
         const produtoVer = await Produto.findByPk(req.body.produto_id)
         const clienteVer = await Cliente.findByPk(req.body.cliente_id)
-        
+
 
         if (produtoVer == null) {
             return res.status(404).json({
@@ -77,9 +78,16 @@ export const criarAluguel = async (req, res, next) => {
             data_fim: req.body.data_fim
         }
 
-        const aluguel = await Aluguel.create(aluguelCriar)
-        await Produto.update({ status: "alugado" }, {
-            where: { id: req.body.produto_id }
+
+        let aluguel
+
+        await sequelize.transaction(async (t) => {
+            aluguel = await Aluguel.create(aluguelCriar, {transaction: t})
+            await Produto.update(
+                { status: "alugado" }, 
+                {where: { id: req.body.produto_id },
+                transaction: t}
+            )
         })
 
         const produtoup = await Produto.findByPk(req.body.produto_id)
@@ -111,7 +119,7 @@ export const devolverAluguel = async (req, res, next) => {
         }
 
         const aluguel = await Aluguel.findByPk(req.params.id)
-        
+
         if (aluguel == null) {
             return res.status(404).json({
                 message: "Esse id não existe"
@@ -119,11 +127,11 @@ export const devolverAluguel = async (req, res, next) => {
         }
 
         await Produto.update({ status: "disponivel" }, {
-            where: { id: aluguel.produto_id}
+            where: { id: aluguel.produto_id }
         })
 
         const produtoup = await Produto.findByPk(aluguel.produto_id)
-        
+
         res.status(200).json({
             aluguel: aluguel,
             produto: produtoup

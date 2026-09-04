@@ -1,31 +1,40 @@
+// ativar o servidor: node --env-file=.env src/server.js
+
 import express from 'express'
 import Produto from './models/Produto.js'
 import Cliente from './models/Cliente.js'
 import Aluguel from './models/Aluguel.js'
-import Sequelize from 'sequelize'
-import config from './config/database.js'
+import Usuario from './models/Usuario.js'
+import { sequelize }  from './database/index.js'
 import ProdutoRotas from './routes/produtoRoutes.js'
 import ClienteRotas from './routes/clienteRoutes.js'
 import AluguelRotas from './routes/aluguelRoutes.js'
+import UsuarioRotas from './routes/usuarioRoutes.js'
 
 const app = express()
 app.use(express.json())
 
-const sequelize = new Sequelize(config)
 Produto.init(sequelize)
 Cliente.init(sequelize)
 Aluguel.init(sequelize)
+Usuario.init(sequelize)
 
 app.use('/Produtos', ProdutoRotas)
 app.use('/clientes', ClienteRotas)
 app.use('/alugueis', AluguelRotas)
+app.use('/usuarios', UsuarioRotas)
 app.use((err, req, res, next) => {
-    if (err.name === "SequelizeUniqueConstraintError") {
+    if (err.name === "SequelizeUniqueConstraintError" && err.errors[0].path == "placa") {
         return res.status(400).json({
             message: "A placa informada já está cadastrada"
         })
     }
-    if (err.name === "SequelizeDatabaseError" && err.parent.message.includes("invalid input value for enum")) {
+    if (err.name === "SequelizeUniqueConstraintError" && err.errors[0].path == "email") {
+        return res.status(400).json({
+            message: "O email já está cadastrado"
+        })
+    }
+    if (err.name === "SequelizeDatabaseError" && err.parent?.message?.includes("invalid input value for enum")) {
         return res.status(400).json({
             message: "Valor inválido atribuído ao status"
         })

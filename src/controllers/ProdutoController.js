@@ -41,6 +41,11 @@ export const deletarProduto = async (req, res, next) => {
 
 
     try {
+        if (!uuidValido(req.params.id)) {
+            return res.status(400).json({
+                message: "O id deve ser um UUID válido"
+            })
+        }
         const produto = await Produto.destroy({
             where: { id: req.params.id }
         })
@@ -58,8 +63,14 @@ export const deletarProduto = async (req, res, next) => {
 export const editarProduto = async (req, res, next) => {
 
     try {
+
+        if (!uuidValido(req.params.id)) {
+            return res.status(400).json({
+                message: "O id deve ser um UUID válido"
+            })
+        }
+
         const produtoEditar = {
-            id: req.params.id,
             marca: req.body.marca,
             modelo: req.body.modelo,
             ano: req.body.ano,
