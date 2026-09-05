@@ -455,7 +455,7 @@ const swaggerDocument = {
                 }
             }
         },
-        '/Produtos/deletar/:id': {
+        '/Produtos/deletar/{id}': {
             delete: {
                 summary: 'Exclui um produto cadastrado no sistema',
                 description: 'Apaga do sistema um produto usando o seu id',
@@ -520,7 +520,7 @@ const swaggerDocument = {
                 }
             }
         },
-        '/Produtos/editar/:id': {
+        '/Produtos/editar/{id}': {
             put: {
                 summary: 'Edita os dados de um produto cadastrado no sistema',
                 description: 'Edita no sistema os dados de um produto usando o seu id',
@@ -595,7 +595,7 @@ const swaggerDocument = {
                 }
             }
         },
-        '/Produtos/buscarProdutoId/:id': {
+        '/Produtos/buscarProdutoId/{id}': {
             get: {
                 summary: 'Busca os dados de um produto cadastrado no sistema pelo seu ID',
                 description: 'Busca no sistema os dados de um produto que corresponda ao id enviado via URL',
@@ -832,7 +832,7 @@ const swaggerDocument = {
                 }
             }
         },
-        '/alugueis/devolverAluguel/:id': {
+        '/alugueis/devolverAluguel/{id}': {
             put: {
                 summary: 'Devolve um produto cadastrado usando o ID de aluguel e deixa o mesmo disponível no sistema',
                 description: 'Devolve pro sistema um produto usando o ID do aluguel para que o mesmo possa ser alugado novamente',
