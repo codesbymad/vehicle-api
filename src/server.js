@@ -57,10 +57,11 @@ app.use((err, req, res, next) => {
     })
 })
 
+const porta = process.env.PORT || 3000
 
 sequelize.authenticate().then(() => {
     console.log("Banco de dados funcionando")
-    app.listen(3000, () => console.log("Servidor ON"))
+    app.listen(porta, () => console.log("Servidor ON"))
 }).catch(err => {
     console.error("Erro ao conectar com o banco de dados:", err)
 })
