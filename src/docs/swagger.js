@@ -661,7 +661,7 @@ const swaggerDocument = {
                 }
             }
         },
-        '/Produtos/buscarProdutoPlaca/:placa': {
+        '/Produtos/buscarProdutoPlaca/{placa}': {
             get: {
                 summary: 'Busca os dados de um produto cadastrado no sistema pela sua placa',
                 description: 'Busca no sistema os dados de um produto que corresponda à placa enviada via URL',
