@@ -22,9 +22,13 @@ class Cliente extends Model {
 
                 email: {
                     type: Sequelize.STRING,
-                }    
+                    validate: {
+                        isEmail: true
+                    }
+                }
             },
-            { sequelize, tableName: 'clientes'
+            {
+                sequelize, tableName: 'clientes'
             }
         )
     }

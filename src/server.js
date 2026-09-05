@@ -47,6 +47,11 @@ app.use((err, req, res, next) => {
             message: "Dados inválidos na requisição"
         })
     }
+    if (err.name === "SequelizeForeignKeyConstraintError") {
+        return res.status(400).json({
+            message: "Não é possível excluir um veículo que possui histórico de aluguel"
+        })
+    }
     res.status(500).json({
         message: "Erro interno inesperado do servidor"
     })
@@ -56,7 +61,7 @@ app.use((err, req, res, next) => {
 sequelize.authenticate().then(() => {
     console.log("Banco de dados funcionando")
     app.listen(3000, () => console.log("Servidor ON"))
-}).catch(err => (
+}).catch(err => {
     console.error("Erro ao conectar com o banco de dados:", err)
-))
+})
 

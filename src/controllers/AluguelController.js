@@ -82,11 +82,13 @@ export const criarAluguel = async (req, res, next) => {
         let aluguel
 
         await sequelize.transaction(async (t) => {
-            aluguel = await Aluguel.create(aluguelCriar, {transaction: t})
+            aluguel = await Aluguel.create(aluguelCriar, { transaction: t })
             await Produto.update(
-                { status: "alugado" }, 
-                {where: { id: req.body.produto_id },
-                transaction: t}
+                { status: "alugado" },
+                {
+                    where: { id: req.body.produto_id },
+                    transaction: t
+                }
             )
         })
 
@@ -122,9 +124,10 @@ export const devolverAluguel = async (req, res, next) => {
 
         if (aluguel == null) {
             return res.status(404).json({
-                message: "Esse id não existe"
+                message: "Aluguel não encontrado"
             })
         }
+
 
         await Produto.update({ status: "disponivel" }, {
             where: { id: aluguel.produto_id }

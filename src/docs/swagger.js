@@ -27,7 +27,7 @@ const swaggerDocument = {
                     },
                     ano: {
                         type: 'integer',
-                        
+
                     },
                     valor_diaria: {
                         type: 'number',
@@ -573,14 +573,11 @@ const swaggerDocument = {
                         }
                     },
                     '404': {
-                        description: 'Produto não encontrado',
+                        description: 'Veículo não encontrado',
                         content: {
                             'application/json': {
                                 schema: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'integer'
-                                    }
+                                    $ref: '#/components/schemas/Mensagem'
                                 }
                             }
                         }

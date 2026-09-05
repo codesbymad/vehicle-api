@@ -11,7 +11,7 @@ export const autenticacao = (req, res, next) => {
 
     const separar = valorHeader.split(' ')
 
-    if (separar[0] != "Bearer" || separar[1] == null){
+    if (separar[0] != "Bearer" || separar[1] == null) {
         return res.status(401).json({
             message: "Autorização malformada"
         })
@@ -19,11 +19,11 @@ export const autenticacao = (req, res, next) => {
 
     const tokenAuten = separar[1]
 
-    try{
+    try {
         const decodificacao = jwt.verify(tokenAuten, process.env.JWT_SECRET)
         req.usuario = decodificacao.id
         next()
-    } catch{
+    } catch {
         return res.status(401).json({
             message: "Token inválido"
         })
